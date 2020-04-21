@@ -30,7 +30,7 @@
         <![endif]-->
     </head>
     <body>
-        <div class="page-wrapper d-flex flex-column">
+        <div class="page-wrapper d-flex flex-column" id="app">
 
             <header>
                 <div class="fixed-top border border-bottom shadow bg-white">
@@ -38,7 +38,7 @@
                         <div class="row justify-content-between align-items-center py-2">
 
                             <div class="col-auto d-block d-md-none pr-0">
-                                <span class="mobile-menu-toggler btn btn-outline-primary"><em class="fas fa-bars"></em></span>
+                                <burger :menu-opened.sync="menuOpened"></burger>
                             </div>
 
                             <div class="col col-sm-auto">
@@ -51,29 +51,12 @@
                             </div>
 
                             <div class="col-auto col-sm px-0 px-md-2">
-                                <div class="mobile-navigation">
-                                    <div class="mobile-navigation__overlay">
-                                        <div class="mobile-navigation__menu">
-                                            <span class="mobile-navigation__toggle btn btn-primary border-0 rounded-0 d-block d-md-none"><em class="fas fa-times fa-2x"></em></span>
-                                            <ul class="navigation list-unstyled m-0">
-                                                <li class="navigation__item d-block d-md-none py-3">
-                                                    <div class="h2 text-center text-white m-0">Pizzalicious</div>
-                                                </li>
-                                                <li class="navigation__item mx-4 my-3 m-md-0">
-                                                    <a class="navigation__link @if (Route::is('main')) navigation__link--active @endif" href="/">Home</a>
-                                                </li>
-                                                <li class="navigation__item mx-4 my-3 m-md-0">
-                                                    <a class="navigation__link @if (Route::is('contact')) navigation__link--active @endif" href="/contact">Contact</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                <navigation :menu-opened.sync="menuOpened"></navigation>
                             </div>
 
                             <div class="col-auto pl-0">
                                 <span class="btn btn-outline-primary position-relative">
-                                    <span class="d-none d-md-inline">My order</span>
+                                    <span class="d-none d-md-inline h6 m-0">My order</span>
                                     <em class="fas fa-shopping-cart d-inline d-md-none"></em>
                                     <span class="cart-items d-block bg-primary text-white position-absolute">1</span>
                                 </span>
@@ -90,8 +73,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <h1>Pizzalicious is like a dream comes true!</h1>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab nam corrupti harum. Voluptates corrupti expedita similique cum nemo exercitationem libero enim debitis dolor, in sequi. Nobis perspiciatis ipsam aperiam error?</p>
+                            <router-view></router-view>
                         </div>
                     </div>
                 </div>
@@ -109,7 +91,7 @@
                             </a>
                         </div>
                         <div class="col-12 col-md my-2 text-center order-2 order-md-1">
-                            Baked in 2020 by <br /><a href="https://github.com/mikesvis" class="text-primary"><em class="fab fa-github mr-2 fa-lg"></em>mikesvis</a>
+                            Baked in 2020 by <br /><a href="https://github.com/mikesvis" class="text-primary" target="_blank"><em class="fab fa-github mr-2 fa-lg"></em>mikesvis</a>
                         </div>
                         <div class="col-12 col-md my-2 order-1 order-md-2">
                             <div class="h6 text-muted m-0 text-center text-md-right">Saint-Petersburg<br />Pizza st., 18/29</div>

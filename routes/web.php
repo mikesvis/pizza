@@ -13,4 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'SiteController@index')->name('main');
+Route::get('/{any}', function () {
+    return view('app');
+})->where('any', '.*');
+
+// Route::get('/', 'SiteController@index')->name('main');
