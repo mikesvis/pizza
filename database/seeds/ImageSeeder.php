@@ -17,14 +17,14 @@ class ImageSeeder extends Seeder
         // fill images for pizza
         $pizzas = Pizza::all();
         $pizzaMaps = [
-            1 => '/images/cheese-VARIANT.jpg',
-            2 => '/images/pepperoni-VARIANT.jpg',
-            3 => '/images/half-pepperoni-half-cheese-VARIANT.jpg',
-            4 => '/images/sausage-VARIANT.jpg',
-            5 => '/images/supreme-VARIANT.jpg',
-            6 => '/images/the-meats-VARIANT.jpg',
-            7 => '/images/buffalo-chicken-VARIANT.jpg',
-            8 => '/images/chicken-bbq-VARIANT.jpg',
+            1 => '/images/pizzas/cheese-VARIANT.jpg',
+            2 => '/images/pizzas/pepperoni-VARIANT.jpg',
+            3 => '/images/pizzas/half-pepperoni-half-cheese-VARIANT.jpg',
+            4 => '/images/pizzas/sausage-VARIANT.jpg',
+            5 => '/images/pizzas/supreme-VARIANT.jpg',
+            6 => '/images/pizzas/the-meats-VARIANT.jpg',
+            7 => '/images/pizzas/buffalo-chicken-VARIANT.jpg',
+            8 => '/images/pizzas/chicken-bbq-VARIANT.jpg',
         ];
         foreach ($pizzas as $pizza) {
             $path = preg_replace("/VARIANT/", 'main', $pizzaMaps[$pizza->id]);
