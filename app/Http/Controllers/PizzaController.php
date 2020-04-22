@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pizza;
 use Illuminate\Http\Request;
+use App\Http\Resources\PizzaResource;
+use App\Http\Resources\PizzaVariantResource;
 
 class PizzaController extends Controller
 {
@@ -14,8 +16,8 @@ class PizzaController extends Controller
      */
     public function index()
     {
-        $pizzas = Pizza::with(['image', 'variants', 'variants.price', 'variants.image'])->where('pizzas.status', 1)->get();
-        return $pizzas;
+        $pizzas = Pizza::with(['image', 'cheapest'])->where('pizzas.status', 1)->get();
+        return PizzaResource::collection($pizzas);
     }
 
     /**
@@ -47,7 +49,21 @@ class PizzaController extends Controller
      */
     public function show($id)
     {
-        //
+        $pizza = Pizza::with('variants.image', 'variants.price', 'variants.size', 'variants.crust')->find($id);
+
+        if(empty($pizza))
+            return response()->json(['message' => 'Not Found.'], 404);
+
+        $result = [
+            'possibilities' => [
+                'sizes' => $pizza->variants->pluck('size.title', 'size.id'),
+                'crusts' => $pizza->variants->pluck('crust.title', 'crust.id'),
+            ],
+            'variants' => PizzaVariantResource::collection($pizza->variants),
+            'selectedVariantIndex' => 0
+        ];
+
+        return $result;
     }
 
     /**

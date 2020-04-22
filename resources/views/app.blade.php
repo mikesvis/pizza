@@ -54,11 +54,15 @@
                                 <navigation :menu-opened.sync="menuOpened"></navigation>
                             </div>
 
+                            <div class="col-auto">
+                                <currency-toggler></currency-toggler>
+                            </div>
+
                             <div class="col-auto pl-0">
                                 <span class="btn btn-outline-primary position-relative">
                                     <span class="d-none d-md-inline h6 m-0">My order</span>
                                     <em class="fas fa-shopping-cart d-inline d-md-none"></em>
-                                    <span class="cart-items d-block bg-primary text-white position-absolute">1</span>
+                                    <span class="cart-items d-block bg-primary text-white position-absolute"></span>
                                 </span>
                             </div>
 

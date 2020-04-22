@@ -2,8 +2,8 @@
     <div class="card h-100">
         <div class="card-body p-2">
             <div class="d-flex flex-column">
-                <div>
-                    <img :src="product.image.path" class="w-100">
+                <div class="height-image mx-auto">
+                    <img :src="product.image" class="w-100" @click="selectOrBuy('image')" :class="{ 'cursor-pointer' : isComplexProduct }">
                 </div>
                 <div>
                     <div class="h5">{{ product.title }}</div>
@@ -19,7 +19,7 @@
                     <div class="h5 m-0">{{ price }}</div>
                 </div>
                 <div class="col-auto">
-                    <button class="btn btn-outline-primary btn-sm h5 m-0" @click="showSelectModal()">select</button>
+                    <button class="btn btn-outline-primary btn-sm h5 m-0" @click="selectOrBuy('button')">{{ selectOrBuyButtonText }}</button>
                 </div>
             </div>
         </div>
@@ -27,35 +27,38 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
     props: {
         product: {
-            type: Object,
             required: true
         }
     },
-    data() {
-        return {
-            currency: '$'
-        }
-    },
     computed: {
+        ...mapGetters(['currentCurrency']),
+        isComplexProduct() {
+            return this.product.pricing.type == 'complex' ? true: false
+        },
         price(){
-            let price = this.product.price
-            if(price){
-                return `${this.currency}${this.product.price}`
-            } else {
-                let minPrice = Math.min(...this.product.variants.map(d => d.price.price));
-                return `from ${this.currency}${minPrice}`
-            }
+            let price = (this.currentCurrency.course * this.product.pricing.price).toFixed(2);
+            return `${this.product.pricing.prefix} ${this.currentCurrency.symbol}${price}`
+        },
+        selectOrBuyButtonText(){
+            return this.isComplexProduct ? 'select': 'buy'
         }
     },
     methods: {
-        showSelectModal(){
-            this.$store.dispatch('fetchSelectedProduct', this.product)
-            // this.$emit('selectProduct', this.product)
-            this.$bvModal.show('productSelectionModal')
-        }
+        selectOrBuy(type){
+            if(this.isComplexProduct) {
+                this.$store.dispatch('fetchProductOptions', this.product)
+                this.$bvModal.show('productSelectionModal')
+            } else {
+                if(type == 'button'){
+                    this.$emit('addToBasket', this.product.pricing.id)
+                }
+            }
+        },
     }
 
 }

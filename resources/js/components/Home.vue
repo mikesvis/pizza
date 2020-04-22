@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="mb-4 rounded overflow-hidden">
-            <agile :autoplay="true" :fade="true" ref="carousel">
+            <!-- <agile :autoplay="true" :fade="true" ref="carousel">
                 <div class="slide">
                     <img src="/images/slides/slide-01.jpg" alt="Pizzalicious is great!" class="slide__image">
                     <div class="slide__text h-100 d-flex flex-column justify-content-center text-white">
@@ -22,26 +22,26 @@
                 </div>
                 <template slot="prevButton"><em class="fas fa-chevron-left"></em></template>
                 <template slot="nextButton"><em class="fas fa-chevron-right"></em></template>
-            </agile>
+            </agile> -->
         </div>
         <h1>Menu</h1>
         <div class="mb-3">
             <pizza-list></pizza-list>
         </div>
-        <product-selection-modal></product-selection-modal>
+        <select-modal></select-modal>
     </div>
 </template>
 
 <script>
     import { VueAgile } from 'vue-agile'
     import PizzaList from './PizzaList'
-    import ProductSelectionModal from './ProductSelectionModal'
+    import SelectModal from './SelectModal'
 
     export default {
         components: {
             agile: VueAgile,
             PizzaList,
-            ProductSelectionModal
+            SelectModal
         }
     }
 </script>

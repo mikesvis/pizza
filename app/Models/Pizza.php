@@ -33,9 +33,8 @@ class Pizza extends Model
         return $this->morphOne('App\Models\Image', 'imageable');
     }
 
-    public function getPriceAttribute()
+    public function cheapest()
     {
-
-        return $this->variants()->with('price')->first();
+        return $this->hasOneThrough('App\Models\Price', 'App\Models\PizzaVariant', 'pizza_id', 'priceable_id')->where('priceable_type', 'App\Models\PizzaVariant')->orderBy('price', 'asc');
     }
 }
