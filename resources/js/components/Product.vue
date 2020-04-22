@@ -19,7 +19,7 @@
                     <div class="h5 m-0">{{ price }}</div>
                 </div>
                 <div class="col-auto">
-                    <button class="btn btn-outline-primary btn-sm h5 m-0 ">select</button>
+                    <button class="btn btn-outline-primary btn-sm h5 m-0" @click="showSelectModal()">select</button>
                 </div>
             </div>
         </div>
@@ -51,6 +51,12 @@ export default {
 
         }
     },
+    methods: {
+        showSelectModal(){
+            console.log(this.product)
+        }
+
+    }
 
 }
 </script>

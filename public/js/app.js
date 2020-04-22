@@ -197,6 +197,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Product_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Product.vue */ "./resources/js/components/Product.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -212,43 +213,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Product: _Product_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['allPizzas']),
   mounted: function mounted() {
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var resource, products;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return fetch('/api/pizza');
+              _this.$store.dispatch('fetchPizzas');
 
-            case 2:
-              resource = _context.sent;
-              _context.next = 5;
-              return resource.json();
-
-            case 5:
-              products = _context.sent;
-              _this.products = products;
-
-            case 7:
+            case 1:
             case "end":
               return _context.stop();
           }
         }
       }, _callee);
     }))();
-  },
-  data: function data() {
-    return {
-      products: []
-    };
   }
 });
 
@@ -327,6 +314,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         })));
         return "from ".concat(this.currency).concat(minPrice);
       }
+    }
+  },
+  methods: {
+    showSelectModal: function showSelectModal() {
+      console.log(this.product);
     }
   }
 });
@@ -705,7 +697,7 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "row" },
-    _vm._l(_vm.products, function(product) {
+    _vm._l(_vm.allPizzas, function(product) {
       return _c(
         "div",
         {
@@ -772,24 +764,26 @@ var render = function() {
             _c("div", { staticClass: "h5 m-0" }, [_vm._v(_vm._s(_vm.price))])
           ]),
           _vm._v(" "),
-          _vm._m(0)
+          _c("div", { staticClass: "col-auto" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-outline-primary btn-sm h5 m-0",
+                on: {
+                  click: function($event) {
+                    return _vm.showSelectModal()
+                  }
+                }
+              },
+              [_vm._v("select")]
+            )
+          ])
         ]
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-auto" }, [
-      _c("button", { staticClass: "btn btn-outline-primary btn-sm h5 m-0 " }, [
-        _vm._v("select")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -1368,37 +1362,77 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _modules_product__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/product */ "./resources/js/store/modules/product.js");
+/* harmony import */ var _modules_pizza__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/pizza */ "./resources/js/store/modules/pizza.js");
 
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
-    product: _modules_product__WEBPACK_IMPORTED_MODULE_2__["default"]
+    pizza: _modules_pizza__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 }));
 
 /***/ }),
 
-/***/ "./resources/js/store/modules/product.js":
-/*!***********************************************!*\
-  !*** ./resources/js/store/modules/product.js ***!
-  \***********************************************/
+/***/ "./resources/js/store/modules/pizza.js":
+/*!*********************************************!*\
+  !*** ./resources/js/store/modules/pizza.js ***!
+  \*********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  actions: {},
-  mutations: {},
+  actions: {
+    fetchPizzas: function fetchPizzas(ctx) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var resource, pizzas;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return fetch('/api/pizza');
+
+              case 2:
+                resource = _context.sent;
+                _context.next = 5;
+                return resource.json();
+
+              case 5:
+                pizzas = _context.sent;
+                ctx.commit('updatePizzas', pizzas);
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  },
+  mutations: {
+    updatePizzas: function updatePizzas(state, pizzas) {
+      state.pizzas = pizzas;
+    }
+  },
   state: {
-    products: []
+    pizzas: []
   },
   getters: {
-    allProducts: function allProducts(state) {
-      return state.products;
+    allPizzas: function allPizzas(state) {
+      return state.pizzas;
     }
   }
 });
