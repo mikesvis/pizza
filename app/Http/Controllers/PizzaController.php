@@ -14,7 +14,7 @@ class PizzaController extends Controller
      */
     public function index()
     {
-        $pizzas = Pizza::with(['image', 'variants', 'variants.price'])->where('pizzas.status', 1)->get();
+        $pizzas = Pizza::with(['image', 'variants', 'variants.price', 'variants.image'])->where('pizzas.status', 1)->get();
         return $pizzas;
     }
 

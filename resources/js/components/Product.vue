@@ -48,14 +48,14 @@ export default {
                 let minPrice = Math.min(...this.product.variants.map(d => d.price.price));
                 return `from ${this.currency}${minPrice}`
             }
-
         }
     },
     methods: {
         showSelectModal(){
-            console.log(this.product)
+            this.$store.dispatch('fetchSelectedProduct', this.product)
+            // this.$emit('selectProduct', this.product)
+            this.$bvModal.show('productSelectionModal')
         }
-
     }
 
 }

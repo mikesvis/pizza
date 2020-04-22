@@ -28,17 +28,20 @@
         <div class="mb-3">
             <pizza-list></pizza-list>
         </div>
+        <product-selection-modal></product-selection-modal>
     </div>
 </template>
 
 <script>
     import { VueAgile } from 'vue-agile'
     import PizzaList from './PizzaList'
+    import ProductSelectionModal from './ProductSelectionModal'
 
     export default {
         components: {
             agile: VueAgile,
-            PizzaList
+            PizzaList,
+            ProductSelectionModal
         }
     }
 </script>
