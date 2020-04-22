@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="mb-3 rounded overflow-hidden">
-            <agile :fade="true" ref="carousel">
+        <div class="mb-4 rounded overflow-hidden">
+            <agile :autoplay="true" :fade="true" ref="carousel">
                 <div class="slide">
                     <img src="/images/slides/slide-01.jpg" alt="Pizzalicious is great!" class="slide__image">
                     <div class="slide__text h-100 d-flex flex-column justify-content-center text-white">
@@ -25,16 +25,20 @@
             </agile>
         </div>
         <h1>Menu</h1>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab nam corrupti harum. Voluptates corrupti expedita similique cum nemo exercitationem libero enim debitis dolor, in sequi. Nobis perspiciatis ipsam aperiam error?</p>
+        <div class="mb-3">
+            <pizza-list></pizza-list>
+        </div>
     </div>
 </template>
 
 <script>
     import { VueAgile } from 'vue-agile'
+    import PizzaList from './PizzaList'
 
     export default {
         components: {
-            agile: VueAgile
+            agile: VueAgile,
+            PizzaList
         }
     }
 </script>

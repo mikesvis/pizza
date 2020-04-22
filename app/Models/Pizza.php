@@ -32,4 +32,10 @@ class Pizza extends Model
     {
         return $this->morphOne('App\Models\Image', 'imageable');
     }
+
+    public function getPriceAttribute()
+    {
+
+        return $this->variants()->with('price')->first();
+    }
 }

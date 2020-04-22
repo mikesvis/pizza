@@ -26,7 +26,7 @@ class PriceSeeder extends Seeder
                     $i++;
                     Price::create([
                         'price' => (15 + $pizza->id + $size->id),
-                        'priceable_type' => 'App\Models\PriceVariant',
+                        'priceable_type' => 'App\Models\PizzaVariant',
                         'priceable_id' => $i
                     ]);
                 }

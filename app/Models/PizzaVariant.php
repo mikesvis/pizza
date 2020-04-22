@@ -62,4 +62,5 @@ class PizzaVariant extends Model
     {
         return $this->morphOne('App\Models\Image', 'imageable');
     }
+
 }

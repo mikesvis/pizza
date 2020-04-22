@@ -6583,10 +6583,10 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vue-agile@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/vue-agile/-/vue-agile-1.1.0.tgz#60859ae1b353368aa057598cc8110541c7477bb7"
-  integrity sha512-uKUUSbakoCnnoJ6nkOloCBp40AuSMW/wNO3NgMnm5CVhwCRLDjZO/CcGs9PxnX7BOjYbKqugtd3QQA3ktg6huw==
+vue-agile@^1.1.1:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/vue-agile/-/vue-agile-1.1.2.tgz#26a3418929a7ef9d5919c43ee86d66902e7b1941"
+  integrity sha512-aMc2Dff9FXhUtDkBjQ+Bij1EYcO/xa1jcTtOIO5W4qpvSAPQESQs1xjL0ra191rFhLCg6YkLZNtIlaTPaJzmXw==
   dependencies:
     lodash.orderby "^4.6.0"
     lodash.throttle "^4.1.1"
@@ -6637,6 +6637,11 @@ vue@^2.6.11:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
+
+vuex@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.2.0.tgz#86da7f26c3e131ff374870580109145a640ee5a8"
+  integrity sha512-qBZGJJ1gUNWZbfZlH7ylIPwENg3R0Ckpq+qPexF065kOMOt1Ixt8WDJmtssVv7OhepWD0+Qie7pOS8f0oQy1JA==
 
 watchpack@^1.6.0:
   version "1.6.1"
