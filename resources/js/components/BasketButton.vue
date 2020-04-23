@@ -39,6 +39,7 @@ export default {
     methods: {
         showBasket() {
             if(this.basketItemsCount != null) {
+                this.$store.dispatch('fetchBasket')
                 this.$bvModal.show('basketModal')
             }
         }

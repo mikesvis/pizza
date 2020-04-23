@@ -22,3 +22,4 @@ Route::resource('/pizza', 'PizzaController')->except(['create', 'store', 'edit',
 
 Route::get('/slide', 'SlideController@index');
 Route::get('/currency', 'CurrencyController@index');
+Route::get('/basket', 'BasketController@index');

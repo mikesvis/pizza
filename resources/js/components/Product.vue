@@ -15,7 +15,7 @@
         </div>
         <div class="card-footer bg-white border-top-0 p-2">
             <div class="row justify-content-between align-items-center">
-                <div class="col-auto">
+                <div class="col pr-0">
                     <div class="h5 m-0">{{ price }}</div>
                 </div>
                 <div class="col-auto">
@@ -60,6 +60,7 @@ export default {
     methods: {
         selectOrBuy(type){
             if(this.isComplexProduct) {
+                this.$store.dispatch('fetchBasketProducts')
                 this.$store.dispatch('fetchProductOptions', this.product)
                 this.$bvModal.show('productSelectionModal')
             } else {

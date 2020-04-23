@@ -18461,6 +18461,14 @@ readers do not read off random characters that represent icons */
   }
 }
 
+.toggler--button {
+  width: 31px;
+}
+.toggler--center {
+  min-width: 38px;
+  color: #000 !important;
+}
+
 .agile__nav-button {
   background: transparent;
   border: none;
