@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('/pizza', 'PizzaController')->except(['create', 'store', 'edit', 'update', 'destroy']);
+
+Route::get('/slide', 'SlideController@index');
