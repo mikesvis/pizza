@@ -16,11 +16,11 @@
 </template>
 
 <script>
-    import { VueAgile } from 'vue-agile'
-    import PizzaList from './PizzaList'
-    import SelectModal from './SelectModal'
     import Slide from './Slide'
     import {mapGetters} from 'vuex'
+    import PizzaList from './PizzaList'
+    import { VueAgile } from 'vue-agile'
+    import SelectModal from './SelectModal'
 
     export default {
         components: {

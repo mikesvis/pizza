@@ -3,7 +3,6 @@
             id="productSelectionModal"
             centered
             title="Select your option"
-            ok-only
         >
         <div class="row">
             <div class="col-12 col-sm-6">
@@ -48,7 +47,7 @@
             <b-button variant="secondary" @click="cancel()" class="mr-auto h4">
                 Close
             </b-button>
-            <b-button variant="primary" @click="addToBasket(viewedVariant.price_id)" class="h4" v-html="addToBasketText">
+            <b-button variant="primary" @click="addToBasket()" class="h4" v-html="addToBasketText">
             </b-button>
         </template>
     </b-modal>
@@ -103,9 +102,11 @@ export default {
             return (this.currentCurrency.course * this.viewedVariant.price).toFixed(2);
         },
         addToBasketText() {
-            let itemInBasket = this.allItemsKeys.find(item => (item.id === this.viewedVariant.price_id && item.quantity > 0))
-            if(itemInBasket) {
-                return `Got ${itemInBasket.quantity} | Add more`
+            if(this.viewedVariant) {
+                let itemInBasket = this.allItemsKeys.find(item => (item.id === this.viewedVariant.price_id && item.quantity > 0))
+                if(itemInBasket) {
+                    return `Got ${itemInBasket.quantity} | Add more`
+                }
             }
             return 'Add to basket'
         }
@@ -141,8 +142,8 @@ export default {
             }
             this.$store.dispatch('changeSelectedOption', index)
         },
-        addToBasket(price_id) {
-            this.$store.dispatch('incrementItem', price_id)
+        addToBasket() {
+            this.$store.dispatch('incrementItem', this.viewedVariant.price_id)
         }
     }
 }

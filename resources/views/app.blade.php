@@ -100,6 +100,8 @@
                 </div>
             </footer>
 
+            <basket-modal></basket-modal>
+
         </div>
 
         <script src="{{ mix('/js/manifest.js') }}"></script>

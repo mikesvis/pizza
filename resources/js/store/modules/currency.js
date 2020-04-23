@@ -21,6 +21,8 @@ export default {
         initialiseCurrency(state) {
             if(localStorage.getItem('currency')) {
                 state.currency = localStorage.getItem('currency')
+            } else {
+                localStorage.setItem('currency', state.currency)
             }
         }
     },

@@ -1,11 +1,8 @@
 export default {
     actions: {
-        // fetchItems(ctx) {
-
-        // },
-        // fetchDelivery(ctx) {
-
-        // },
+        fetchBasketProducts(ctx) {
+            ctx.commit('initialiseBasket')
+        },
         incrementItem(ctx, item_id){
             ctx.commit('updateItem', { type: 'increment', item_id })
         },
@@ -17,6 +14,13 @@ export default {
         },
     },
     mutations: {
+        initialiseBasket(state) {
+            if(localStorage.getItem('basketItems')) {
+                state.keys = JSON.parse(localStorage.getItem('basketItems'))
+            } else {
+                localStorage.setItem('basketItems', JSON.stringify(state.keys))
+            }
+        },
         updateItem(state, action) {
 
             let item = state.keys.find(item => item.id === action.item_id)
@@ -44,6 +48,7 @@ export default {
 
             state.keys = state.keys.filter(function(item, index, arr){ return item.quantity > 0;})
 
+            localStorage.setItem('basketItems', JSON.stringify(state.keys))
         }
     },
     state: {
