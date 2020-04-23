@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import pizza from './modules/pizza'
 import slide from './modules/slide'
+import basket from './modules/basket'
 import option from './modules/option'
 import currency from './modules/currency'
 
@@ -13,5 +14,6 @@ export default new Vuex.Store({
         option,
         currency,
         slide,
+        basket
     }
 })

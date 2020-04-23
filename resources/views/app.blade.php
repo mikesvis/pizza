@@ -59,11 +59,7 @@
                             </div>
 
                             <div class="col-auto pl-0">
-                                <span class="btn btn-outline-primary position-relative">
-                                    <span class="d-none d-md-inline h6 m-0">My order</span>
-                                    <em class="fas fa-shopping-cart d-inline d-md-none"></em>
-                                    <span class="cart-items d-block bg-primary text-white position-absolute"></span>
-                                </span>
+                                <basket-button></basket-button>
                             </div>
 
                         </div>

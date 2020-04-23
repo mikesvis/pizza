@@ -18,6 +18,7 @@ class PizzaVariantResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'price' => $this->price->price,
+            'price_id' => $this->price->id,
             'image' => $this->image->path,
             'image_size' => (!isset($this->size->id)) ? 100 : ceil(50 + (50/3*($this->size->id))).'%',
             'tree' => [$this->size->id ?? null, $this->crust->id ?? null],

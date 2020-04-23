@@ -48,8 +48,7 @@
             <b-button variant="secondary" @click="cancel()" class="mr-auto h4">
                 Close
             </b-button>
-            <b-button variant="primary" @click="ok()" class="h4">
-                Add to basket
+            <b-button variant="primary" @click="addToBasket(viewedVariant.price_id)" class="h4" v-html="addToBasketText">
             </b-button>
         </template>
     </b-modal>
@@ -71,7 +70,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['viewedVariant', 'chosenProduct', 'allVariants', 'allSizes', 'allCrusts', 'currentCurrency']),
+        ...mapGetters(['viewedVariant', 'chosenProduct', 'allVariants', 'allSizes', 'allCrusts', 'currentCurrency', 'allItemsKeys']),
         sizeButtons(){
             this.sizes = [];
             for(let i in this.allSizes){
@@ -102,6 +101,13 @@ export default {
         },
         price() {
             return (this.currentCurrency.course * this.viewedVariant.price).toFixed(2);
+        },
+        addToBasketText() {
+            let itemInBasket = this.allItemsKeys.find(item => (item.id === this.viewedVariant.price_id && item.quantity > 0))
+            if(itemInBasket) {
+                return `Got ${itemInBasket.quantity} | Add more`
+            }
+            return 'Add to basket'
         }
     },
     methods: {
@@ -128,14 +134,15 @@ export default {
         changeVariant(variant) {
             let index = 0;
             for(let i in this.allVariants) {
-                console.log(this.allVariants[i]);
-                console.log(variant);
                 if(this.allVariants[i].size_id == variant.size_id && this.allVariants[i].crust_id == variant.crust_id) {
                     index = i;
                     break;
                 }
             }
             this.$store.dispatch('changeSelectedOption', index)
+        },
+        addToBasket(price_id) {
+            this.$store.dispatch('incrementItem', price_id)
         }
     }
 }

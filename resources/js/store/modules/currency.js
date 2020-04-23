@@ -1,5 +1,11 @@
 export default {
     actions: {
+        async fetchCurrencies(ctx) {
+            const resource = await fetch('/api/currency')
+            const currencies = await resource.json()
+            ctx.commit('updateCurrencies', currencies)
+            ctx.commit('initialiseCurrency')
+        },
         changeCurrency(ctx, newCurrency) {
             ctx.commit('updateCurrency', newCurrency)
         }
@@ -7,24 +13,20 @@ export default {
     mutations: {
         updateCurrency(state, newCurrency) {
             state.currency = newCurrency
+            localStorage.setItem('currency', newCurrency)
+        },
+        updateCurrencies(state, currencies) {
+            state.currencies = currencies
+        },
+        initialiseCurrency(state) {
+            if(localStorage.getItem('currency')) {
+                state.currency = localStorage.getItem('currency')
+            }
         }
     },
     state: {
-        currencies: {
-            USD: {
-                id: 0,
-                symbol: '$',
-                course: 1,
-                code: 'USD'
-            },
-            EUR: {
-                id: 1,
-                symbol: '€',
-                course: 0.92,
-                code: 'EUR'
-            }
-        },
-        currency: 'EUR'
+        currencies: [],
+        currency: 'USD'
     },
     getters: {
         allCurrencies(state) {

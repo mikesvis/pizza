@@ -17,7 +17,7 @@ export default {
         Product, BModal
     },
     computed: mapGetters(['allPizzas']),
-    async mounted() {
+    async created() {
         this.$store.dispatch('fetchPizzas')
     },
 }
