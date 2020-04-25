@@ -20,7 +20,6 @@ class CreateOrderPriceTable extends Migration
             $table->string('title');
             $table->float('price', 8, 2);
             $table->unsignedInteger('quantity');
-            $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('price_id')->references('id')->on('prices')->onDelete('cascade');

@@ -22,10 +22,8 @@ export default class Form {
 
 		for (let field in this.originalData){
 			this[field] = '';
+            this.errors.clear(field);
 		}
-
-		// (7) This should be here - not in onSuccess.
-		this.errors.clear();
 
 	}
 
@@ -35,13 +33,9 @@ export default class Form {
 	 */
 	data() {
 
-		// (8) Cleaning of this version of method. Now we will loop through
-		// the fields of the original data and assign these values to the object to return
-
 		let data = {};
 
 		for(let property in this.originalData){
-			// (8+) will have data.title = this.title & so on..
 			data[property] = this[property];
 		}
 
@@ -64,50 +58,33 @@ export default class Form {
 	 * @url  		{string}
 	 * @return 		{[type]}
 	 */
-	async submit(requestType, url) {
+	submit(requestType, url) {
 
-		// return new Promise((resolve, reject) => {
-
-            const response = await fetch(url, {
+        return new Promise((resolve, reject) => {
+            const response = fetch(url,{
                 method: requestType,
                 cache: 'no-cache',
+                credentials: 'same-origin',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    "Accept": "application/json",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRF-Token": document.head.querySelector('meta[name="csrf-token"]')
                 },
                 body: JSON.stringify(this.data())
             }).then(response => {
-                this.onSuccess(response.json())
-                resolve(response.json())
-            }).catch(error => {
-                this.onFail(error.response)
-                reject(error.response)
-            });
-
-            return response.json()
-
-
-            // await fetch(url)
-            //     .then(response => {
-            //         this.onSuccess(response.data);
-            //         resolve(response);
-            //     })
-            //     .catch(error => {
-			// 		this.onFail(error.response);
-			// 		reject(error.response);
-			// 	});
-
-			// axios
-			// 	[requestType](url,this.data())
-			// 	.then(response => {
-			// 		this.onSuccess(response.data);
-			// 		resolve(response);
-			// 	})
-			// 	.catch(error => {
-			// 		this.onFail(error.response);
-			// 		reject(error.response);
-			// 	});
-
-		// });
+                if (!response.ok) { throw response }
+                return response.json()
+            }).then(json => {
+                this.onSuccess(json)
+                resolve(json)
+            }).catch(err => {
+                err.text().then(errorMessage => {
+                    this.onFail(errorMessage)
+                });
+                reject(err);
+              });
+        });
 
 	}
 
@@ -117,8 +94,6 @@ export default class Form {
 	 * @return {[type]}
 	 */
 	onSuccess(data) {
-
-		console.log(data.message);
 
 		this.reset();
 
@@ -131,7 +106,7 @@ export default class Form {
 	 */
 	onFail(errorResponse) {
 
-		 this.errors.record(errorResponse.data.errors)
+		this.errors.record(JSON.parse(errorResponse).errors)
 
 	}
 

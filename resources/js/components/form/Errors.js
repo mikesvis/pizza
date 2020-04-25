@@ -26,7 +26,7 @@ export default class Errors {
 	 */
 	record(errors){
 
-		this.errors = errors;
+        this.errors = errors
 
 	}
 
@@ -51,9 +51,7 @@ export default class Errors {
 	 * @return {Boolean}
 	 */
 	has(field){
-
 		return this.errors.hasOwnProperty(field);
-
 	}
 
 	/**

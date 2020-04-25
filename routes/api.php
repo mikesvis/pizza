@@ -27,3 +27,5 @@ Route::get('/currency', 'CurrencyController@index');
 Route::get('/basket', 'BasketController@index');
 
 Route::post('/order', 'OrderController@create');
+
+Route::get('/order/{order}', 'OrderController@show');

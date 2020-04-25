@@ -36,6 +36,9 @@ export default {
         },
         currentCurrency(state) {
             return state.currencies[state.currency]
+        },
+        currencyCode(state) {
+            return state.currency
         }
     }
 }

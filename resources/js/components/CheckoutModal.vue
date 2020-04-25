@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-group">
                     <label for="address">Delivery address</label>
-                    <input type="tetx" class="form-control" id="address" placeholder="" v-model="form.address" :class="{ 'is-invalid' : form.errors.has('address') }">
+                    <input type="text" class="form-control" id="address" placeholder="" v-model="form.address" :class="{ 'is-invalid' : form.errors.has('address') }">
                     <div class="invalid-feedback" v-if="form.errors.has('address')" v-text="form.errors.get('address')"></div>
                 </div>
                 <div class="form-group">
@@ -26,7 +26,6 @@
                     <textarea class="form-control" id="comments" rows="3" v-model="form.comments" :class="{ 'is-invalid' : form.errors.has('comments') }"></textarea>
                     <div class="invalid-feedback" v-if="form.errors.has('comments')" v-text="form.errors.get('comments')"></div>
                 </div>
-                <!-- <input type="hidden" v-for="item in allItemsKeys" :key="item.id" :name="'ids['+item.id+']'" :value="item.quantity" v-model="form.ids"> -->
             </form>
         </div>
         <template v-slot:modal-footer="{ ok, cancel }">
@@ -34,7 +33,7 @@
                 Close
             </b-button>
 
-            <b-button variant="primary" @click="submitForm" class="h4" v-if="allItemsKeys.length" :disabled="formValid">
+            <b-button variant="primary" @click="submitForm" class="h4" v-if="allItemsKeys.length">
                 Submit
             </b-button>
         </template>
@@ -47,10 +46,7 @@ import Form from './form/Form'
 
 export default {
     computed: {
-        ...mapGetters(['allItemsKeys', 'currentCurrency']),
-        formValid(){
-            return this.form.errors.any()
-        }
+        ...mapGetters(['allItemsKeys', 'currencyCode'])
     },
     data() {
         return {
@@ -59,7 +55,8 @@ export default {
                 phone: "",
                 address: "",
                 comments: "",
-                ids: []
+                user_currency: "",
+                ids: ""
             }),
         }
     },
@@ -67,12 +64,15 @@ export default {
         submitForm(){
             this.form.ids = {};
             for(let i in this.allItemsKeys) {
-                this.form.ids[this.allItemsKeys[i].id] = this.allItemsKeys[i].quantity;
+                this.form.ids[this.allItemsKeys[i].id] = this.allItemsKeys[i].quantity
             }
-            console.log(JSON.stringify(this.form.data()))
+            this.form.user_currency = this.currencyCode
             this.form.post('/api/order')
-                .then(() => console.log('Then in Vue triggered'))
-				.catch(() => console.log('Reject in Vue triggered'));
+                .then((responseData) => {
+                    this.$bvModal.hide('checkoutModal')
+                    this.$store.dispatch('clearBasket')
+                    this.$router.push({ name: 'order', params: { orderUuid: responseData.uuid } })
+                });
         }
     }
 }
