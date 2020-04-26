@@ -21,5 +21,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('/pizza', 'PizzaController')->except(['create', 'store', 'edit', 'update', 'destroy']);
 
 Route::get('/slide', 'SlideController@index');
+
 Route::get('/currency', 'CurrencyController@index');
+
 Route::get('/basket', 'BasketController@index');
+
+Route::post('/order', 'OrderController@create');
+
+Route::get('/order/{order}', 'OrderController@show');

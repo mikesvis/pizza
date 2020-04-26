@@ -22,4 +22,18 @@ class Price extends Model
     {
         return $this->morphTo();
     }
+
+    /**
+     * The orders that belong to the price product.
+     */
+    public function orders()
+    {
+        return $this->belongsToMany('App\Models\Order')
+            ->using('App\Models\OrderPrice')
+            ->withPivot([
+                'price',
+                'title',
+                'quantity',
+            ]);
+    }
 }

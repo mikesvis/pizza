@@ -3,13 +3,23 @@
         id="basketModal"
         centered
         title="My order"
-
         >
         <div v-if="basketItems.length">
             <basket-item v-for="basketItem in basketItems" :key="basketItem.id" :product="basketItem"></basket-item>
         </div>
         <div v-if="subTotal != 0">
-            {{ subTotalPrice }} / {{ deliveryPrice }} / {{ totalPrice }}
+            <div class="row my-3 align-items-center">
+                <div class="col-6 col-sm-9 text-left text-right"><div class="h6 m-0">Subtotal:</div></div>
+                <div class="col text-right"><div class="h6 m-0"><strong>{{ subTotalPrice }}</strong></div></div>
+            </div>
+            <div class="row my-3 align-items-center">
+                <div class="col-6 col-sm-9 text-left text-right"><div class="h6 m-0">Delivery fee:</div></div>
+                <div class="col text-right"><div class="h6 m-0"><strong>{{ deliveryPrice }}</strong></div></div>
+            </div>
+            <div class="row mt-3 align-items-center">
+                <div class="col-6 col-sm-9 text-left text-right"><div class="h5 m-0">Total:</div></div>
+                <div class="col text-right"><div class="h5 m-0"><strong>{{ totalPrice }}</strong></div></div>
+            </div>
         </div>
         <div v-if="basketItems.length == 0">
             <div class="h4 text-center">Your basket is empty</div>
@@ -18,12 +28,11 @@
             <b-button variant="secondary" @click="cancel()" class="mr-auto h4">
                 Close
             </b-button>
-            <b-button variant="primary" @click="ok()" class="h4" v-if="basketItems.length">
+            <b-button variant="primary" @click="proceedToCheckout()" class="h4" v-if="basketItems.length">
                 Checkout
             </b-button>
         </template>
     </b-modal>
-</template>
 </template>
 
 <script>
@@ -38,14 +47,28 @@ export default {
     computed: {
         ...mapGetters(['basketItems', 'subTotal', 'delivery', 'total', 'currentCurrency']),
         subTotalPrice(){
-            return (this.currentCurrency.course * this.subTotal).toFixed(2);
+            let price = (this.currentCurrency.course * this.subTotal).toFixed(2)
+            return `${this.currentCurrency.symbol}${price}`
         },
         deliveryPrice(){
-            return (this.currentCurrency.course * this.delivery).toFixed(2);
+            let price = (this.currentCurrency.course * this.delivery).toFixed(2)
+            if(price == 0) {
+                return 'free'
+            }
+            return `${this.currentCurrency.symbol}${price}`
         },
         totalPrice(){
-            return (this.currentCurrency.course * this.total).toFixed(2);
+            let price = (this.currentCurrency.course * this.total).toFixed(2)
+            return `${this.currentCurrency.symbol}${price}`
         },
+    },
+    methods: {
+        proceedToCheckout(){
+            if(this.basketItems.length) {
+                this.$bvModal.hide('basketModal')
+                this.$bvModal.show('checkoutModal')
+            }
+        }
     },
     watch: {
         basketItems: function(newItems, oldItems) {

@@ -27,8 +27,15 @@ export default {
         }
     },
     state: {
-        currencies: [],
-        currency: 'USD'
+        currencies: {
+            DUMMY: {
+                id: 0,
+                symbol: '',
+                course: 0,
+                code: 'DUMMY'
+            }
+        },
+        currency: 'DUMMY'
     },
     getters: {
         allCurrencies(state) {
@@ -36,6 +43,9 @@ export default {
         },
         currentCurrency(state) {
             return state.currencies[state.currency]
+        },
+        currencyCode(state) {
+            return state.currency
         }
     }
 }

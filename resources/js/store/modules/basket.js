@@ -22,6 +22,9 @@ export default {
         deleteItem(ctx, item_id){
             ctx.commit('updateItem', { type: 'remove', item_id })
         },
+        clearBasket(ctx) {
+            ctx.commit('removeBasket')
+        }
     },
     mutations: {
         initialiseBasket(state) {
@@ -72,6 +75,11 @@ export default {
         updateBasket(state, products) {
             state.items = products.items
             state.delivery = products.delivery
+        },
+        removeBasket(state){
+            state.keys = []
+            state.items = []
+            localStorage.setItem('basketItems', JSON.stringify(state.keys))
         }
     },
     state: {

@@ -102,6 +102,8 @@
 
             <basket-modal></basket-modal>
 
+            <checkout-modal></checkout-modal>
+
         </div>
 
         <script src="{{ mix('/js/manifest.js') }}"></script>
