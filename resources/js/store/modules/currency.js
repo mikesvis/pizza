@@ -27,22 +27,24 @@ export default {
         }
     },
     state: {
-        currencies: {
-            DUMMY: {
-                id: 0,
-                symbol: '',
-                course: 0,
-                code: 'DUMMY'
-            }
-        },
-        currency: 'DUMMY'
+        currency: 'USD',
+        currencies: {},
+        defaultCurrency: {
+            id: 0,
+            symbol: '$',
+            course: 1,
+            code: 'USD'
+        }
     },
     getters: {
         allCurrencies(state) {
             return state.currencies;
         },
         currentCurrency(state) {
-            return state.currencies[state.currency]
+            if(state.currencies[state.currency]) {
+                return state.currencies[state.currency]
+            }
+            return state.defaultCurrency
         },
         currencyCode(state) {
             return state.currency
