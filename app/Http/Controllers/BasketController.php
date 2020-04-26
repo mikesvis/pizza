@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Price;
+use App\Models\Delivery;
 use Illuminate\Http\Request;
 use App\Http\Resources\BasketItemsResource;
 
@@ -14,10 +15,7 @@ class BasketController extends Controller
 
         $result = [
             'items' => BasketItemsResource::collection($items),
-            'delivery' => [
-                'price' => 10,
-                'free_above' => 20
-            ]
+            'delivery' => (new Delivery())->simple(),
         ];
 
         return $result;

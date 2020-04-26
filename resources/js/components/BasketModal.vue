@@ -3,7 +3,6 @@
         id="basketModal"
         centered
         title="My order"
-
         >
         <div v-if="basketItems.length">
             <basket-item v-for="basketItem in basketItems" :key="basketItem.id" :product="basketItem"></basket-item>
@@ -29,7 +28,7 @@
             <b-button variant="secondary" @click="cancel()" class="mr-auto h4">
                 Close
             </b-button>
-            <b-button variant="primary" @click="ok()" class="h4" v-if="basketItems.length">
+            <b-button variant="primary" @click="proceedToCheckout()" class="h4" v-if="basketItems.length">
                 Checkout
             </b-button>
         </template>
@@ -62,6 +61,14 @@ export default {
             let price = (this.currentCurrency.course * this.total).toFixed(2)
             return `${this.currentCurrency.symbol}${price}`
         },
+    },
+    methods: {
+        proceedToCheckout(){
+            if(this.basketItems.length) {
+                this.$bvModal.hide('basketModal')
+                this.$bvModal.show('checkoutModal')
+            }
+        }
     },
     watch: {
         basketItems: function(newItems, oldItems) {
