@@ -11,20 +11,20 @@
         </div>
 
         <div class="row my-2 border-bottom py-1">
-            <div class="col-12 col-md my-1 align-items-center">
+            <div class="col-6 col-sm my-1 align-items-center">
                 <div class="h6 m-0 text-right">Delivery fee:</div>
             </div>
-            <div class="col-12 col-xl-2 my-1">
-                <div class="h6 m-0 text-center">{{ deliveryPrice }}</div>
+            <div class="col-6 col-sm-6 col-md-3 col-lg-2 my-1">
+                <div class="h6 m-0 text-md-center">{{ deliveryPrice }}</div>
             </div>
         </div>
 
         <div class="row my-2 border-bottom py-1">
-            <div class="col-12 col-md my-1 align-items-center">
+            <div class="col-6 col-sm my-1 align-items-center">
                 <div class="h5 m-0 text-right">Total:</div>
             </div>
-            <div class="col-12 col-xl-2 my-1">
-                <div class="h5 m-0 text-center text-primary">{{ totalPrice }}</div>
+            <div class="col-6 col-sm-6 col-md-3 col-lg-2 my-1">
+                <div class="h5 m-0 text-md-center text-primary">{{ totalPrice }}</div>
             </div>
         </div>
 
@@ -36,6 +36,12 @@ import {mapGetters} from 'vuex'
 import OrderProduct from "./OrderProduct.vue"
 
 export default {
+    props: {
+        order: {
+            type: Object,
+            required: true
+        }
+    },
     computed: {
         ...mapGetters(['currentCurrency']),
         deliveryPrice() {
@@ -52,12 +58,6 @@ export default {
     },
     components: {
         OrderProduct
-    },
-    props: {
-        order: {
-            type: Object,
-            required: true
-        }
     }
 }
 </script>
